@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!data) return res.status(400).send('The requested unit does not exist');
 
     const {data: originalImage} = await axios({url: data.images['squareSmall'], responseType: 'arraybuffer'});
-    const {data: logoImage} = await axios({url: `${req.headers.referer}/${Logo.src}`, responseType: 'arraybuffer'});
+    const {data: logoImage} = await axios({url: `https://sl-samuraipunks.netlify.app/favicon.png`, responseType: 'arraybuffer'});
 
     const logoMosaicBuffer = await sharp(logoImage)
       .resize(32, 32, PROCESSING_CONFIGURATION)
