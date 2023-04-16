@@ -1,6 +1,6 @@
 import axios from 'axios';
-import sharp, {ResizeOptions} from 'mysharp';
 import {NextApiRequest, NextApiResponse} from 'next';
+import sharp, {ResizeOptions} from 'sharp';
 
 
 const PROCESSING_CONFIGURATION: ResizeOptions = {
