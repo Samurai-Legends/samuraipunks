@@ -16,7 +16,7 @@ export const UnitGenerator = ({selectedUnit, selectedId}: UnitGeneratorProps) =>
   const [isLoading, setIsLoading] = useState(false);
 
   const fileName = useMemo(() => {
-    return `samuraiPunk-${selectedUnit.label}-${selectedId}.png`;
+    return `samuraiPunk-${selectedUnit.value}-${selectedId}.png`;
   }, [selectedUnit, selectedId]);
 
   const fetchOriginalImage = useCallback(async () => {
