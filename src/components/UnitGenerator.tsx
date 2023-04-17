@@ -35,7 +35,7 @@ export const UnitGenerator = ({selectedUnit, selectedId}: UnitGeneratorProps) =>
 
   return (
     <Spacing>
-      <Button style={{width: '100%'}} onClick={fetchOriginalImage}>
+      <Button onClick={fetchOriginalImage} size="large" style={{width: '100%'}}>
         Generate
       </Button>
       {isLoading && (<LoadingIndicator/>)}

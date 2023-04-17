@@ -5,31 +5,35 @@ import {unitTypes} from '~/constants';
 
 
 export type UnitSelectorProps = {
-  selectedUnit: typeof unitTypes[number];
-  selectedId: number;
-
-  onSelectedUnitChange: (value: typeof unitTypes[number]['value']) => void;
   onSelectedIdChange: (value: number) => void;
+  onSelectedUnitChange: (value: typeof unitTypes[number]['value']) => void;
+  selectedId: number;
+  selectedUnit: typeof unitTypes[number];
 }
 
 export const UnitSelector = ({
-  selectedUnit,
-  selectedId,
-  onSelectedUnitChange,
   onSelectedIdChange,
+  onSelectedUnitChange,
+  selectedId,
+  selectedUnit,
 }: UnitSelectorProps) => (
-  <Spacing>
-    <Select style={{width: '100%'}} value={selectedUnit.value as any} onChange={onSelectedUnitChange}>
+  <Spacing spacing="middle">
+    <Select
+      onChange={onSelectedUnitChange}
+      size="large" style={{width: '100%'}}
+      value={selectedUnit.value as any}
+    >
       {unitTypes.map(({value, label, disabled}) => (
         <Select.Option disabled={disabled} key={value} value={value}>{label}</Select.Option>
       ))}
     </Select>
     <InputNumber
+      min="0"
+      onChange={onSelectedIdChange as any}
+      size="large"
+      step="1"
       style={{width: '100%'}}
       value={selectedId as any}
-      onChange={onSelectedIdChange as any}
-      min="0"
-      step="1"
     />
   </Spacing>
 );

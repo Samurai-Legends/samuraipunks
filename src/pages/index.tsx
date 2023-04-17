@@ -26,7 +26,7 @@ export default function Home() {
       <Row justify="center" align="middle" style={{width: '100vw', height: '100vh'}}>
         <Background/>
         <Col xs={20} sm={12} md={9} lg={7} xl={5} xxl={4}>
-          <Spacing>
+          <Spacing spacing="middle">
             <UnitSelector
               selectedUnit={selectedUnit}
               selectedId={selectedId}
