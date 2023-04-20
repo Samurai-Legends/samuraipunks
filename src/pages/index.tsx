@@ -9,6 +9,11 @@ import {unitTypes, ValueType} from '~/constants';
 export default function Home() {
   const [selectedUnit, setSelectedUnit] = useState<ValueType>(unitTypes[0]);
   const [selectedId, setSelectedId] = useState<number>(0);
+  const [isBorderEnabled, setIsBorderEnabled] = useState<boolean>(false);
+
+  const handleIsBorderEnabledChange = useCallback((value: boolean) => {
+    setIsBorderEnabled(value);
+  }, []);
 
   const handleUnitChange = useCallback((value: string) => {
     setSelectedUnit(unitTypes.find(x => x.value == value) as ValueType);
@@ -28,14 +33,17 @@ export default function Home() {
         <Col xs={20} sm={12} md={9} lg={7} xl={5} xxl={4}>
           <Spacing spacing="middle">
             <UnitSelector
-              selectedUnit={selectedUnit}
-              selectedId={selectedId}
-              onSelectedUnitChange={handleUnitChange}
+              isBorderEnabled={isBorderEnabled}
+              onIsBorderEnabledChange={handleIsBorderEnabledChange}
               onSelectedIdChange={handleIdChange}
+              onSelectedUnitChange={handleUnitChange}
+              selectedId={selectedId}
+              selectedUnit={selectedUnit}
             />
             <UnitGenerator
-              selectedUnit={selectedUnit}
+              isBorderEnabled={isBorderEnabled}
               selectedId={selectedId}
+              selectedUnit={selectedUnit}
             />
           </Spacing>
         </Col>

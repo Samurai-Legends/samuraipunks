@@ -23,7 +23,7 @@ export const unitTypes: ValueType[] = [
   {value: 'malevolentMonk', label: 'Malevolent Monk'},
   {value: 'mystic', label: 'Mystic'},
   {value: 'ninja', label: 'Ninja'},
-  {value: 'kunoichiNinja', label: 'Kunoichi Ninja'},
+  {value: 'kunoichi', label: 'Kunoichi Ninja'},
   {value: 'runner', label: 'Runner'},
   {value: 'samurai', label: 'Samurai'},
   {value: 'limitedEdition', label: 'Corrupt/Divine Samurai'},

@@ -1,19 +1,23 @@
-import {InputNumber, Select} from 'antd';
+import {Checkbox, InputNumber, Select} from 'antd';
 
 import {Spacing} from '~/components';
 import {unitTypes} from '~/constants';
 
 
 export type UnitSelectorProps = {
+  onIsBorderEnabledChange: (value: boolean) => void;
   onSelectedIdChange: (value: number) => void;
   onSelectedUnitChange: (value: typeof unitTypes[number]['value']) => void;
+  isBorderEnabled: boolean;
   selectedId: number;
   selectedUnit: typeof unitTypes[number];
 }
 
 export const UnitSelector = ({
+  onIsBorderEnabledChange,
   onSelectedIdChange,
   onSelectedUnitChange,
+  isBorderEnabled,
   selectedId,
   selectedUnit,
 }: UnitSelectorProps) => (
@@ -35,5 +39,11 @@ export const UnitSelector = ({
       style={{width: '100%'}}
       value={selectedId as any}
     />
+    <Checkbox
+      checked={isBorderEnabled}
+      onChange={e => onIsBorderEnabledChange(e.target.checked)}
+    >
+      Show border around image
+    </Checkbox>
   </Spacing>
 );

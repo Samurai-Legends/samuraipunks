@@ -29,10 +29,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .resize(64, 64, PROCESSING_CONFIGURATION)
       .toBuffer();
 
+    const borderSize = req.query.border === 'true' ? 6 : 0;
     const combinedBuffer = await sharp(nftMosaicBuffer)
-      .resize(512, 512, PROCESSING_CONFIGURATION)
+      .resize(512 - (borderSize * 2), 512 - (borderSize * 2), PROCESSING_CONFIGURATION)
       .composite([{input: logoBuffer, left: 16, top: 16}])
-      .extend({top: 6, left: 6, bottom: 6, right: 6, background: '#000'})
+      .extend({
+        top: borderSize,
+        left: borderSize,
+        bottom: borderSize,
+        right: borderSize,
+        background: '#000',
+      })
       .toBuffer();
 
     return res.status(200).send(combinedBuffer);

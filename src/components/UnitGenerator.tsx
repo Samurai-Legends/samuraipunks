@@ -1,4 +1,4 @@
-import {DownloadOutlined} from '@ant-design/icons';
+import {DownloadOutlined as DownloadIcon, SyncOutlined as GenerateIcon} from '@ant-design/icons';
 import {Button, notification} from 'antd';
 import {useCallback, useMemo, useState} from 'react';
 
@@ -7,23 +7,30 @@ import {unitTypes} from '~/constants';
 
 
 export type UnitGeneratorProps = {
+  isBorderEnabled: boolean;
   selectedUnit: typeof unitTypes[number];
   selectedId: number;
 }
 
-export const UnitGenerator = ({selectedUnit, selectedId}: UnitGeneratorProps) => {
+export const UnitGenerator = ({
+  isBorderEnabled,
+  selectedUnit,
+  selectedId,
+}: UnitGeneratorProps) => {
   const [generatedImage, setGeneratedImage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const fileName = useMemo(() => {
-    return `samuraiPunk-${selectedUnit.value}-${selectedId}.png`;
-  }, [selectedUnit, selectedId]);
+    let baseName = `samuraiPunk-${selectedUnit.value}-${selectedId}`;
+    if (isBorderEnabled) baseName += '-bordered';
+    return `${baseName}.png`;
+  }, [selectedUnit, selectedId, isBorderEnabled]);
 
   const fetchOriginalImage = useCallback(async () => {
     try {
       setGeneratedImage('');
       setIsLoading(true);
-      const response = await fetch(`/api/image?unitVariant=${selectedUnit.value}&unitId=${selectedId}`);
+      const response = await fetch(`/api/image?unitVariant=${selectedUnit.value}&unitId=${selectedId}&border=${isBorderEnabled}`);
       if (!response.ok) {
         return notification.error({message: 'Oh no!', description: await response.text()});
       }
@@ -31,12 +38,12 @@ export const UnitGenerator = ({selectedUnit, selectedId}: UnitGeneratorProps) =>
     } finally {
       setIsLoading(false);
     }
-  }, [selectedUnit, selectedId]);
+  }, [selectedUnit, selectedId, isBorderEnabled]);
 
   return (
     <Spacing>
       <Button onClick={fetchOriginalImage} size="large" style={{width: '100%'}}>
-        Generate
+        <GenerateIcon/>Generate
       </Button>
       {isLoading && (<LoadingIndicator/>)}
       {generatedImage && !isLoading && (
@@ -51,7 +58,7 @@ export const UnitGenerator = ({selectedUnit, selectedId}: UnitGeneratorProps) =>
             download={fileName}
             href={generatedImage}
             style={{width: '100%'}}
-            icon={<DownloadOutlined/>}
+            icon={<DownloadIcon/>}
           >
             Download
           </Button>
